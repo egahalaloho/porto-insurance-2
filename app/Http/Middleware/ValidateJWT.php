@@ -14,11 +14,7 @@ class ValidateJWT
      * Handle an incoming request.
      */
     public function handle(Request $request, Closure $next)
-    {
-        Log::info('Middleware ValidateJWT dijalankan');
-        dd('Middleware JWT dijalankan'); // Tambahkan debug
-        
-        dd('test');
+    {   
         try {
             // Pastikan token ada dan valid
             $user = JWTAuth::parseToken()->authenticate();
@@ -28,7 +24,7 @@ class ValidateJWT
                 'error' => $e->getMessage() === 'Token not provided'
                     ? 'Token not provided'
                     : 'Token is invalid or expired',
-            ], 200);
+            ], 401);
         }
 
         // Lanjutkan permintaan jika token valid

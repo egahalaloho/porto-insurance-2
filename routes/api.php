@@ -14,7 +14,7 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('testings-api', function (Request $request) {
+Route::get('testing-api', function (Request $request) {
     return response()->json(['test' => 'testing api']); 
  });
  
@@ -23,8 +23,8 @@ Route::post('registers', [AuthController::class, 'register']);
 
 Route::get('protected', function () {
     dd('Route accessed');
-})->middleware();
+})->middleware(['jwt']);
 
-Route::middleware('jwt.auth')->group(function () {
+Route::middleware(['jwt.auth'])->group(function () {
      Route::post('logout', [AuthController::class, 'logout']);
 });
